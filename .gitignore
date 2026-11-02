@@ -1,0 +1,36 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+
+# 本地数据（知识库内容与日志不入库）
+data/chroma/
+data/uploads/
+data/*.sqlite3
+data/history.db
+data/library.db
+data/*.db-wal
+data/*.db-shm
+data/update_history.jsonl
+data/update_history.jsonl.bak
+logs/
+*.log
+
+# 第三方设计参考图（仅本地保留，公开仓库不放他人设计截图）
+docs/design-refs/
+
+# 测试与工具产物
+.pytest_cache/
+logspytest*
+
+# 配置
+.env
+
+# 编辑与系统
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# 生成的样例文件
+examples/_e2e_sample.*

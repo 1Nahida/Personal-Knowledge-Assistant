@@ -1,0 +1,80 @@
+provider=ollama model=qwen2.5:7b
+hits=5
+context follows:
+[1] 来源: _e2e_sample.pdf | 第2页 | 版本: v1.0 | 主题: PKA_PDF
+ChromaDB ·······················
+
+[2] 来源: _e2e_sample.docx | 段落 | 版本: v1.0 | 主题: PKA_端到端测试文档_DOCX
+# PKA 端到端测试文档（DOCX）
+
+本段用于验证 DOCX 解析入库：Ollama 在 Windows 上默认监听 11434 端口，qwen2.5:7b 是本项目默认问答模型。
+
+[3] 来源: _e2e_sample.pdf | 第3页 | 版本: v1.0 | 主题: PKA_PDF
+··········
+
+[4] 来源: python_装饰器与生成器笔记.md | 段落 | 版本: v1.0 | 主题: Python_装饰器与生成器学习笔记
+# Python 装饰器与生成器学习笔记
+
+## 什么是装饰器
+
+装饰器（Decorator）本质是一个**接受函数作为参数、并返回新函数的高阶函数**，语法上写作 `@decorator`。
+它的作用是在**不修改原函数代码**的前提下，为函数增加额外行为（日志、计时、权限校验、缓存等）。
+
+最简实现：
+
+```python
+import functools
+
+def my_decorator(func):
+    @functools.wraps(func)  # 保留原函数的 __name__、__doc__
+    def wrapper(*args, **kwargs):
+        print(">>> before")
+        result = func(*args, **kwargs)
+        print("<<< after")
+        return result
+    return wrapper
+
+@my_decorator
+def hello(name):
+    """打个招呼"""
+    print(f"hello, {name}")
+```
+
+`functools.wraps` 很重要：没有它，被装饰函数的 `__name__` 会变成 `wrapper`，影响调试与文档展示。
+
+## 带参数的装饰器
+
+带参数的装饰器需要**三层嵌套**：参数层 -> 装饰器层 -> wrapper 层。
+
+[5] 来源: _e2e_sample.pdf | 第4页 | 版本: v1.0 | 主题: PKA_PDF
+······· PDF ········
+
+============================================================
+
+########## 第 1 次 ##########
+----- A/system t1 | 0.9s | FAIL -----
+知识库中暂未收录关于 ChromaDB 的相关信息。
+
+如果您需要了解 ChromaDB 的相关信息，建议直接访问其官方文档或相关资料进行查询。
+
+----- B/system t1 | 0.5s | FAIL -----
+知识库中暂未收录相关内容。
+
+----- C/single t1 | 1.2s | PASS -----
+摘录中未提供关于 ChromaDB 的具体信息，因此无法得知其具体功能和部署需求。
+
+引用：[1] _e2e_sample.pdf(第2页) v1.0
+
+########## 第 2 次 ##########
+----- A/system t2 | 1.0s | FAIL -----
+知识库中暂未收录关于 ChromaDB 的相关信息。
+
+如果您需要了解 ChromaDB 的相关信息，建议您查阅官方文档或相关技术资料。如果没有额外的服务要求，通常 ChromaDB 会作为一个独立的服务运行。
+
+----- B/system t2 | 0.3s | FAIL -----
+知识库中暂未收录相关内容。
+
+----- C/single t2 | 1.0s | PASS -----
+摘录中未提供关于 ChromaDB 的具体信息，因此无法得知其确切定义及是否需要额外部署服务。
+
+引用：[1] _e2e_sample.pdf(第2页) v1.0

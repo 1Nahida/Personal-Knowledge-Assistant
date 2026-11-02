@@ -1,0 +1,39 @@
+----- builtin fontname=china-s | pages=4 | OK
+  p1: 'PKA 端到端测试文档（PDF）'
+  p2: 'ChromaDB 是一个纯本地的嵌入式向量数据库，无需额外部署，'
+  p3: '适合个人知识库场景。'
+  p4: '本段落用于验证 PDF 解析与页码引用。'
+
+----- builtin fontname=china-ss | pages=4 | OK
+  p1: 'PKA 端到端测试文档（PDF）'
+  p2: 'ChromaDB 是一个纯本地的嵌入式向量数据库，无需额外部署，'
+  p3: '适合个人知识库场景。'
+  p4: '本段落用于验证 PDF 解析与页码引用。'
+
+----- builtin fontname=japan | pages=4 | BAD
+  p1: 'PKA 端到端文档（PDF）'
+  p2: 'ChromaDB 是一个本地的嵌入式向量数据，无需外部署，'
+  p3: '适合个人知景。'
+  p4: '本段落用于 PDF 解析与引用。'
+
+----- builtin fontname=korea | pages=4 | BAD
+  p1: 'PKA 端到端文（PDF）'
+  p2: 'ChromaDB 是一本地的嵌入式向量据，无需外部署，'
+  p3: '适合人知景。'
+  p4: '本段落用于 PDF 解析引用。'
+
+----- TextWriter + Font("cjk") | pages=4 | OK
+  p1: 'PKA 端到端测试文档（PDF）'
+  p2: 'ChromaDB 是一个纯本地的嵌入式向量数据库，无需额外部署，'
+  p3: '适合个人知识库场景。'
+  p4: '本段落用于验证 PDF 解析与页码引用。'
+
+----- insert_textbox china-s rv=606.890625
+----- insert_textbox fontname=china-s | pages=1 | OK
+  p1: 'PKA 端到端测试文档（PDF）\nChromaDB 是一个纯本地的嵌入式向量数据库，无需额外部署，\n适合个人知识库场景。\n本段落用于验证 PDF 解析与页码引用。'
+
+----- DEFAULT (no fontname) —— 现状写法 | pages=4 | BAD
+  p1: 'PKA ········PDF·'
+  p2: 'ChromaDB ·······················'
+  p3: '··········'
+  p4: '······· PDF ········'
