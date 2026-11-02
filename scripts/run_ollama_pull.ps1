@@ -1,5 +1,5 @@
 $ErrorActionPreference = "Continue"
-$root = "<项目根>"
+$root = Split-Path -Parent (Split-Path -Parent $MyInvocation.MyCommand.Path)
 $log = "$root\logs\ollama_pull_bge-m3.log"
 for ($i = 1; $i -le 3; $i++) {
     "=== attempt $i ===" | Out-File -FilePath $log -Append -Encoding utf8
